@@ -2,24 +2,22 @@
 # Load Libraries ----------------------------------------------------------
 library(caTools)
 library(tidyverse)
+library(xlsx)
 
-# Train / Test Data Split -------------------------------------------------
-#data points for training and testing set selected using a random number generator (RNG)
-#setting seed number for the RNG, this can be any arbitrary number 
-set.seed(101)
+# Import Data ---------------------------------------------------------------
+dir_ex <- paste0("J:/deans/Presidents/SixSigma/Individual Folders",
+                 "/Current Employees/Engineers/Anjelica Weber/Projects",
+                 "/Data Mining Training Materials")
+df_lin <- read.xlsx2(file = paste0(dir_ex, "/Datasets.xlsx"),
+                     sheetName = "SimpleRegression 2")
 
-#Split ratio is 70% for training 30% testing
-#function creates boolean vector T for 70% of data F for 30%
-#pass in any column from data set
-sample <- sample.split(df$age, SplitRatio = 0.7)
+# Pre-processing -----------------------------------------------------------
+df_lin <- df_lin[1:10,] %>% mutate(xi = as.numeric(xi), yi = as.numeric(yi))
 
-train <- subset(df, sample == T)
-test <- subset(df, sample == F)
+# Building Model ----------------------------------------------------------
+lr_model <- lm(yi ~ xi, df_lin)
 
-# Training Model ----------------------------------------------------------
-#equation y ~ x1 + x2 + etc, or y ~. for all variables
-lr_model <- lm(target ~., train)
-
-#display linear equation used for predictions
-summary(lr_model)
-
+# Evaluating Model --------------------------------------------------------
+model_stats <- summary(lr_model)
+model_stats$coefficients
+model_stats$r.squared
