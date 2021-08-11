@@ -45,7 +45,7 @@ model_stats <- summary(multi_lr_model)
 #coefficients used in linear equation to make predictions
 model_stats$coefficients
 #Measure of goodness of fit of model
-#Describes hoe much variation is explained by the model. 1 is the best.
+#Describes how much variation is explained by the model. 1 is the best.
 model_stats$r.squared
 
 # Predictions -------------------------------------------------------------
