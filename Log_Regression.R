@@ -19,10 +19,10 @@ set.seed(101)
 #Split ratio is 70% for training 30% testing
 #function creates boolean vector T for 70% of data F for 30%
 #pass in any column from data set
-sample <- sample.split(df$age, SplitRatio = 0.7)
+sample <- sample.split(df_heart$age, SplitRatio = 0.7)
 
-train <- subset(df, sample == T)
-test <- subset(df, sample == F)
+train <- subset(df_heart, sample == T)
+test <- subset(df_heart, sample == F)
 
 # Training Model ----------------------------------------------------------
 #equation y ~ x1 + x2 + etc, or y ~. for all variables
