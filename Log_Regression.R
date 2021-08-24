@@ -53,5 +53,16 @@ log_model <- glm(DEATH_EVENT ~.,
 summary(log_model)
 
 # Predictions -------------------------------------------------------------
-head(predict(log_model, df_heart))
-result_prob <- predict()
+#head(predict(log_model, df_heart))
+#the probability a data point will be in class 1 or class 2
+#results range from 0 (0%) to 1 (100%)
+result_prob <- predict(log_model,
+                       newdata = df_heart[,1:12],
+                       type = "response")
+#results coerced into classes
+#general rule of thumb <50% is class 1 >50% is class 2
+result_fitted <- ifelse(result_prob > 0.5, 1, 0)
+
+# Evaluating Accuracy -----------------------------------------------------
+misClassError <- mean(result_fitted != df_heart$DEATH_EVENT)
+print(paste("Accuracy is", round((1 - misClassError)*100, 2), "%"))
