@@ -45,10 +45,13 @@ df_heart <- df_heart %>%
 
 # Training Model ----------------------------------------------------------
 #equation y ~ x1 + x2 + etc, or y ~. for all variables
-log_model <- glm(DEATH_EVENT ~., df_heart, family = "binomial")
+log_model <- glm(DEATH_EVENT ~.,
+                 data = df_heart,
+                 family = binomial(link = "logit"))
 
 #model summary
 summary(log_model)
 
 # Predictions -------------------------------------------------------------
 head(predict(log_model, df_heart))
+result_prob <- predict()
