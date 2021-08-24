@@ -12,6 +12,7 @@ df_heart <- read.xlsx2(file = paste0(dir_ex, "/Datasets.xlsx"),
                      sheetName = "HeartFailure")
 
 # Pre-Processing ----------------------------------------------------------
+#formatting data types
 df_heart <- df_heart %>%
   mutate(age = as.numeric(age),
          anaemia = as.factor(anaemia),
@@ -26,27 +27,28 @@ df_heart <- df_heart %>%
          smoking = as.factor(smoking),
          time = as.numeric(time),
          DEATH_EVENT = as.factor(DEATH_EVENT))
+#normalizing data
 
 
 # Train / Test Data Split -------------------------------------------------
 #data points for training and testing set selected using a random number generator (RNG)
 #setting seed number for the RNG, this can be any arbitrary number 
-set.seed(101)
+#set.seed(101)
 
 #Split ratio is 70% for training 30% testing
 #function creates boolean vector T for 70% of data F for 30%
 #pass in any column from data set
-sample <- sample.split(df_heart$age, SplitRatio = 0.7)
+#sample <- sample.split(df_heart$age, SplitRatio = 0.7)
 
-train <- subset(df_heart, sample == T)
-test <- subset(df_heart, sample == F)
+#train <- subset(df_heart, sample == T)
+#test <- subset(df_heart, sample == F)
 
 # Training Model ----------------------------------------------------------
 #equation y ~ x1 + x2 + etc, or y ~. for all variables
-log_model <- glm(DEATH_EVENT ~., train, family = "binomial")
+log_model <- glm(DEATH_EVENT ~., df_heart, family = "binomial")
 
-#display linear equation used for predictions
+#model summary
 summary(log_model)
 
 # Predictions -------------------------------------------------------------
-head(predict(log_model, test))
+head(predict(log_model, df_heart))
