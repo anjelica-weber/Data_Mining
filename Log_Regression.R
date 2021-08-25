@@ -27,8 +27,6 @@ df_heart <- df_heart %>%
          smoking = as.factor(smoking),
          time = as.numeric(time),
          DEATH_EVENT = as.factor(DEATH_EVENT))
-#normalizing data
-
 
 # Train / Test Data Split -------------------------------------------------
 #data points for training and testing set selected using a random number generator (RNG)

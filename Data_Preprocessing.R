@@ -20,7 +20,7 @@ missmap(df_multi_lin)
 #Option 1 - Remove missing values
 test_df <- df_lin %>% drop_na_()
 
-#Option 2 - Replace missing values
+#Option 2 - Replace missing values (note do not replace values for target variable)
 #Option 2a - Replace with average / most frequent
 
 #Option 2b - Replace with random value
